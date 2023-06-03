@@ -1,25 +1,22 @@
-import React from 'react';
+import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 import styles from './FeedbackOptions.module.css';
 
-const FeedbackOptions = ({ options, onLeaveFeedback }) => {
+const FeedbackOptions = ({ labels, onLeaveFeedback }) => {
   return (
     <div className={styles.container}>
       <ul className={styles.feedback}>
-        {options.map(option => {
+        {labels.map(label => {
+          const id = nanoid(3);
           return (
-            <li
-              className={styles.feedback__item}
-              key={`${option}Btn`}
-              id={`${option}Btn`}
-            >
+            <li className={styles.feedback__item} key={`${label}Btn`} id={id}>
               <button
                 className={styles.feedback__btn}
-                name={option}
+                name={label}
                 type="button"
                 onClick={onLeaveFeedback}
               >
-                {option}
+                {label}
               </button>
             </li>
           );
@@ -30,7 +27,7 @@ const FeedbackOptions = ({ options, onLeaveFeedback }) => {
 };
 
 FeedbackOptions.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  labels: PropTypes.arrayOf(PropTypes.string).isRequired,
   onLeaveFeedback: PropTypes.func.isRequired,
 };
 

@@ -1,22 +1,23 @@
 import PropTypes from 'prop-types';
 import styles from './Statistics.module.css';
+import { nanoid } from 'nanoid';
 
 export const Statistics = ({
-  options,
-  state,
+  labels,
+  values,
   countTotalFeedback,
   percentage,
 }) => {
   return (
     <div className={styles.container}>
       <ul className={styles.statistics}>
-        {options.map(option => {
-          // const id = shortid.generate();
+        {labels.map((label, index) => {
+          const id = nanoid(3);
           return (
-            <li className={styles.statistics__item} key={option} id={option}>
+            <li className={styles.statistics__item} key={`${label}val`} id={id}>
               <p className={styles.statistics__value}>
-                {option.charAt(0).toUpperCase() + option.slice(1)}:{' '}
-                {state[option]}
+                {label.charAt(0).toUpperCase() + label.slice(1)}:{' '}
+                {values[index]}
               </p>
             </li>
           );
@@ -37,12 +38,7 @@ export const Statistics = ({
 };
 
 Statistics.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
-  state: PropTypes.shape({
-    good: PropTypes.number.isRequired,
-    neutral: PropTypes.number.isRequired,
-    bad: PropTypes.number.isRequired,
-  }).isRequired,
+  labels: PropTypes.arrayOf(PropTypes.string).isRequired,
   countTotalFeedback: PropTypes.func.isRequired,
   percentage: PropTypes.func.isRequired,
 };
