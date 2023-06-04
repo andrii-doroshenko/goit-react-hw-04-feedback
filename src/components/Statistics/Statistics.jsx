@@ -3,11 +3,13 @@ import styles from './Statistics.module.css';
 import { nanoid } from 'nanoid';
 
 export const Statistics = ({
-  labels,
-  values,
+  feedbackState,
   countTotalFeedback,
   percentage,
 }) => {
+  const labels = Object.keys(feedbackState);
+  const values = Object.values(feedbackState);
+
   return (
     <div className={styles.container}>
       <ul className={styles.statistics}>
@@ -22,11 +24,13 @@ export const Statistics = ({
             </li>
           );
         })}
+
         <li className={styles.statistics__item} id="total">
           <p className={styles.statistics__value}>
             Total: {countTotalFeedback()}
           </p>
         </li>
+
         <li className={styles.statistics__item} id="percentage">
           <p className={styles.statistics__value}>
             Positive feedback: {percentage()}%
@@ -38,7 +42,7 @@ export const Statistics = ({
 };
 
 Statistics.propTypes = {
-  labels: PropTypes.arrayOf(PropTypes.string).isRequired,
+  feedbackState: PropTypes.object.isRequired,
   countTotalFeedback: PropTypes.func.isRequired,
   percentage: PropTypes.func.isRequired,
 };
