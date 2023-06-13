@@ -10,19 +10,10 @@ const initialState = {
   bad: 0,
 };
 
-const feedbackReducer = (state, action) => {
-  switch (action.type) {
-    case 'good':
-      return { ...state, good: state.good + 1 };
-    case 'neutral':
-      return { ...state, neutral: state.neutral + 1 };
-    case 'bad':
-      return { ...state, bad: state.bad + 1 };
-
-    default:
-      return state;
-  }
-};
+const feedbackReducer = (state, { type }) => ({
+  ...state,
+  [type]: state[type] + 1,
+});
 
 export const App = () => {
   const [feedbackState, dispatch] = useReducer(feedbackReducer, initialState);
